@@ -1,5 +1,7 @@
 use std::error::Error;
 use clap::{App, Arg};
+use std::fs::File;
+use std::io::{self, BufRead, BufReader};
 
 #[derive(Debug)]
 pub struct Config {
@@ -37,17 +39,25 @@ pub fn get_args() -> MyResult<Config> {
         .get_matches();
 
     Ok(Config {
-        files: match matches.values_of_lossy("files") {
-            None => Vec::new(),
-            Some(vec) => vec,
-        },
+        files: matches.values_of_lossy("files").unwrap_or_default(),
         number_lines: matches.is_present("number_lines"),
         number_nonblank_lines: matches.is_present("number_nonblank_lines"),
     })
 }
 
+fn open(filename: &str) -> MyResult<Box<dyn BufRead>> {
+    match filename {
+        "-" => Ok(Box::new(BufReader::new(io::stdin()))),
+        _ => Ok(Box::new(BufReader::new(File::open(filename)?)))
+    }
+}
 
 pub fn run(config: Config) -> MyResult<()> {
-    dbg!("{}", config);
+    for filename in config.files {
+        match open(&filename) {
+            Err(err) => eprintln!("Failed to open {}: {}", filename, err),
+            Ok(_) => println!("Opened {}", filename),
+        }
+    }
     Ok(())
 }
