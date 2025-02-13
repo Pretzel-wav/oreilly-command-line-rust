@@ -1,22 +1,27 @@
 #!/usr/bin/env bash
 
-OUTDIR="tests/expected"
+ROOT="inputs"
+OUTDIR="expected"
+
 [[ ! -d "$OUTDIR" ]] && mkdir -p "$OUTDIR"
 
-# skips_bad_file
-cat inputs/fox.txt > $OUTDIR/skips_bad_file.txt
+EMPTY="$ROOT/empty.txt"
+FOX="$ROOT/fox.txt"
+SPIDERS="$ROOT/spiders.txt"
+BUSTLE="$ROOT/the-bustle.txt"
+ALL="$EMPTY $FOX $SPIDERS $BUSTLE"
 
-# reads_stdin_by_default
-ls inputs | cat > $OUTDIR/reads_stdin_by_default.txt
+for FILE in $ALL; do
+    BASENAME=$(basename "$FILE")
+    cat    $FILE > ${OUTDIR}/${BASENAME}.out
+    cat -n $FILE > ${OUTDIR}/${BASENAME}.n.out
+    cat -b $FILE > ${OUTDIR}/${BASENAME}.b.out
+done
 
-# reads_dash_as_stdin`
-ls inputs | cat - > $OUTDIR/reads_dash_as_stdin.txt
+cat    $ALL > $OUTDIR/all.txt.out
+cat -n $ALL > $OUTDIR/all.txt.n.out
+cat -b $ALL > $OUTDIR/all.txt.b.out
 
-# numbers_lines
-cat -n inputs/the-bustle.txt > $OUTDIR/numbers_lines.txt
-
-# skips_blank_lines
-cat -b inputs/the-bustle.txt > $OUTDIR/skips_blank_lines.txt
-
-# concatenates_files
-cat inputs/the-bustle.txt inputs/fox.txt inputs/spiders.txt > $OUTDIR/concatenates_files.txt
+cat    < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.out
+cat -n < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.n.out
+cat -b < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.b.out
