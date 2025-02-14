@@ -22,6 +22,6 @@ cat    $ALL > $OUTDIR/all.txt.out
 cat -n $ALL > $OUTDIR/all.txt.n.out
 cat -b $ALL > $OUTDIR/all.txt.b.out
 
-cat    < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.out
-cat -n < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.n.out
-cat -b < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.txt.b.out
+cat    < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.out
+cat -n < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.n.out
+cat -b < $BUSTLE > $OUTDIR/$(basename $BUSTLE).stdin.b.out

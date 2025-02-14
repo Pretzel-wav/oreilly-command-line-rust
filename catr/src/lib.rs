@@ -54,9 +54,9 @@ fn open(filename: &str) -> MyResult<Box<dyn BufRead>> {
 
 pub fn run(config: Config) -> MyResult<()> {
     for filename in config.files {
-        match open(&filename) {
-            Err(err) => eprintln!("Failed to open {}: {}", filename, err),
-            Ok(_) => println!("Opened {}", filename),
+        let reader = open(&filename)?;
+        for line in reader.lines() {
+            println!("{}", &line?);
         }
     }
     Ok(())

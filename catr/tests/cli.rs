@@ -134,30 +134,30 @@ fn spiders() -> Result<()> {
 
 #[test]
 fn bustle_b() -> Result<()> {
-    run(&["-b", BUSTLE], "tests/expected/bustle.txt.b.out")
+    run(&["-b", BUSTLE], "tests/expected/the-bustle.txt.b.out")
 }
 
 #[test]
 fn bustle_n() -> Result<()> {
-    run(&["-n", BUSTLE], "tests/expected/bustle.txt.n.out")
+    run(&["-n", BUSTLE], "tests/expected/the-bustle.txt.n.out")
 }
 
 #[test]
 fn bustle() -> Result<()> {
-    run(&[BUSTLE], "tests/expected/bustle.txt.out")
+    run(&[BUSTLE], "tests/expected/the-bustle.txt.out")
 }
 
 #[test]
 fn bustle_stdin_b() -> Result<()> {
-    run_stdin(BUSTLE, &["-b", "-"], "tests/expected/bustle.txt.b.stdin.out")
+    run_stdin(BUSTLE, &["-b", "-"], "tests/expected/the-bustle.txt.stdin.b.out")
 }
 
 #[test]
 fn bustle_stdin_n() -> Result<()> {
-    run_stdin(BUSTLE, &["-n", "-"], "tests/expected/bustle.txt.n.stdin.out")
+    run_stdin(BUSTLE, &["-n", "-"], "tests/expected/the-bustle.txt.stdin.n.out")
 }
 
 #[test]
 fn bustle_stdin() -> Result<()> {
-    run_stdin(BUSTLE, &["-"], "tests/expected/bustle.txt.stdin.out")
+    run_stdin(BUSTLE, &["-"], "tests/expected/the-bustle.txt.stdin.out")
 }
